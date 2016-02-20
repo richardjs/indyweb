@@ -7,11 +7,11 @@ app = flask.Flask(__name__)
 
 @app.route('/think/<qbn>')
 def think(qbn):
-	p = Popen(sys.argv[1], stdin=PIPE, stdout=PIPE)
-	p.stdin.write(qbn);
-	p.stdin.flush()
+	p = Popen((sys.argv[1], qbn), stdin=PIPE, stdout=PIPE)
 	p.wait()
 	qmn =p.stdout.readline().strip()
+
+	print qbn, qmn
 
 	r = flask.Response('{"qmn": "%s"}' % qmn)
 	r.headers['Content-Type'] = 'application/json'
