@@ -7,9 +7,9 @@ app = flask.Flask(__name__)
 
 @app.route('/think/<qbn>')
 def think(qbn):
-	p = Popen((sys.argv[1], qbn), stdin=PIPE, stdout=PIPE)
+	p = Popen((sys.argv[1], qbn), stdin=PIPE, stdout=PIPE, shell=False)
 	p.wait()
-	qmn =p.stdout.readline().strip()
+	qmn = p.stdout.readline().strip()
 
 	print qbn, qmn
 
@@ -18,4 +18,4 @@ def think(qbn):
 	r.headers['Access-Control-Allow-Origin'] = '*'
 	return r
 	
-app.run(debug=True)
+app.run()
